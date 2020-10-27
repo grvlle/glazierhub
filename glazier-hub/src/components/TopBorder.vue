@@ -12,7 +12,9 @@ export default {
 <style lang="scss">
 .border {
     width: 100%;
-    height: 95px;
-    background: linear-gradient((#52a0fd, #8dd9ff));
+    margin-top: 7%;
+    height: 5px;
+    position: fixed;
+    background-image: linear-gradient(90deg, (#8dd9ff, #52a0fd));
 }
 </style>

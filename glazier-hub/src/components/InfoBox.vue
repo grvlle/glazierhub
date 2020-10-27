@@ -30,7 +30,7 @@ export default {
   color: #1d1d1d;
   background-color: rgba(158, 158, 158, 0.185);
   backdrop-filter: blur(15px);
-  border-radius: 30px;
+  border-radius: 20px;
   box-shadow: rgba(114, 114, 114, 0.281) 0px 0px 20px 0px;
   width: 17em;
   padding: 15px;
