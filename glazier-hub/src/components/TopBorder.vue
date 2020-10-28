@@ -4,17 +4,20 @@
 
 <script>
 export default {
-    name: "top-border",
-
-}
+  name: "top-border",
+};
 </script>
 
 <style lang="scss">
+
 .border {
-    width: 100%;
-    margin-top: 7%;
-    height: 5px;
-    position: fixed;
-    background-image: linear-gradient(90deg, (#8dd9ff, #52a0fd));
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border: none;
+  height: 52px;
+  background-image: linear-gradient(90deg, (#8dd9ff, #52a0fd));
+  z-index: 100;
 }
 </style>

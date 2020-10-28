@@ -1,17 +1,16 @@
 <template>
+  <top-border></top-border>
   <div id="app">
-    <top-border></top-border>
     <video-bg></video-bg>
-    <info-box></info-box>
-    
 
+    <info-box></info-box>
   </div>
 </template>
 
 <script>
 import InfoBox from "./components/InfoBox.vue";
 import VideoBg from "./components/Video.vue";
-import TopBorder from "./components/TopBorder"
+import TopBorder from "./components/TopBorder";
 
 export default {
   name: "App",
@@ -34,7 +33,7 @@ html {
   top: 0;
   left: 0;
   overflow: hidden;
-
+  max-width: 100%;
 }
 #app {
   height: 100%;
@@ -51,6 +50,4 @@ html {
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-
 </style>
