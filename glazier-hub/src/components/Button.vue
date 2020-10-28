@@ -41,14 +41,7 @@ export default {
 .bg-gradient1:before {
   @include gradientBg(#52a0fd, #8dd9ff);
 }
-.bg-gradient2 span,
-.bg-gradient2:before {
-  @include gradientBg(#44ea76, #39fad7);
-}
-.bg-gradient3 span,
-.bg-gradient3:before {
-  @include gradientBg(#fa6c9f, #ffe140);
-}
+
 
 /* General */
 .wrapper {
@@ -100,7 +93,7 @@ a {
   }
   span {
     display: inline-block;
-    padding: 18px 60px;
+    padding: 13px 68px;
     border-radius: 50em;
     position: relative;
     z-index: 2;
