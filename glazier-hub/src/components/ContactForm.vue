@@ -1,11 +1,11 @@
 <template>
   <form class="contact-form" @submit.prevent="sendEmail">
-    <label>Name</label>
-    <input type="text" name="user_name">
-    <label>Email</label>
-    <input type="email" name="user_email">
-    <label>Message</label>
-    <textarea name="message"></textarea>
+    
+    <input type="text" placeholder="name" name="user_name">
+    
+    <input type="email" placeholder="email" name="user_email">
+    
+    <textarea name="message" placeholder="message"></textarea>
     <button type="submit" class="btn fancy-button bg-gradient1"><span>SEND IT</span></button>
   </form>
 
@@ -15,6 +15,13 @@
 import emailjs from 'emailjs-com';
 
 export default {
+    data() {
+        return {
+            name: "fasaf",
+            email: "user@company.com",
+            message: "Enter your message..."
+        }
+    },
   methods: {
     sendEmail: (e) => {
       emailjs.sendForm('service_ducx66m', 'template_pap7zau', e.target, 'user_jpmayVYOD7Ud2zRQ23MFc')
@@ -199,27 +206,24 @@ a {
 .contact-form .form {
   display: flex;
   flex-direction: column;
-  font-size: 16px;
+  font-size: 12px;
 }
 
-.contact-form_title {
-  color: #333;
-  text-align: left;
-  font-size: 28px;
-}
 
 .contact-form input[type="email"],
 .contact-form input[type="text"],
 .contact-form textarea {
   border: solid 1px #e8e8e8;
-  font-family: "Roboto", sans-serif;
-  padding: 10px 7px;
+  font-family: "Verdana", sans-serif;
+  padding: 10px 10px;
+  width: 90%;
   margin-bottom: 15px;
   outline: none;
 }
 
 .contact-form textarea {
   resize: none;
+  height: 100px;
 }
 
 .contact-form .button {
@@ -241,7 +245,7 @@ a {
 .contact-form input[type="text"],
 .contact-form textarea,
 .contact-form .button {
-  font-size: 15px;
+  font-size: 10px;
   border-radius: 3px;
 }
 </style>
