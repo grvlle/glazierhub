@@ -61,10 +61,9 @@ export default {
   display: flex;
   left: 50%;
   top: 50%;
-  width: 60%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  position: fixed;
+  position: absolute;
 }
 
 .terminal {
