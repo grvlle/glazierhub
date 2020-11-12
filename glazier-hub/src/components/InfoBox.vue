@@ -5,32 +5,53 @@
       <span class="terminal_icon__aA_71"></span>
       <span class="terminal_icon__aA_71"></span>
       <br />
-        <type-effect />
+      <type-effect />
     </div>
     <div class="box">
-      <img src="../assets/img/logo.png" />
-      <h1>Glacier<span style="color: #8dd9ff">Hub</span></h1>
-      <p>
-        We're a consultancy business that specializes in distributed systems and
-        storage solutions.
-        <br /><br />
-        Our team consists of software engineers with years of experience in
-        building <b>scalable</b> and <b>low-latency</b> distributed software.
-      </p>
-      <cta-btn></cta-btn>
+      <div v-if="!showContactForm">
+        <img src="../assets/img/logo.png" />
+        <h1>Glacier<span style="color: #8dd9ff">Hub</span></h1>
+        <p>
+          We're a consultancy business that specializes in distributed systems
+          and storage solutions.
+          <br /><br />
+          Our team consists of software engineers with years of experience in
+          building <b>scalable</b> and <b>low-latency</b> distributed software.
+        </p>
+      </div>
+      <contact-form v-if="showContactForm" />
+      <cta-btn :btn-text="btnText" @click="contactUs"></cta-btn>
     </div>
   </div>
 </template>
 
 <script>
 import CtaBtn from "./Button.vue";
-import TypeEffect from './TypeEffect.vue'
+import ContactForm from "./ContactForm.vue";
+import TypeEffect from "./TypeEffect.vue";
 
 export default {
   name: "info-box",
   components: {
     CtaBtn,
+    ContactForm,
     TypeEffect,
+  },
+  data() {
+    return {
+      showContactForm: false,
+      btnText: "Contact Us",
+    };
+  },
+  methods: {
+    contactUs: function () {
+      this.showContactForm = !this.showContactForm;
+      if (this.showContactForm) {
+          this.btnText = "Go Back"
+      } else {
+          this.btnText = "Contact Us"
+      }
+    },
   },
 };
 </script>
