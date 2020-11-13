@@ -1,251 +1,161 @@
 <template>
-  <form class="contact-form" @submit.prevent="sendEmail">
-    
-    <input type="text" placeholder="name" name="user_name">
-    
-    <input type="email" placeholder="email" name="user_email">
-    
-    <textarea name="message" placeholder="message"></textarea>
-    <button type="submit" class="btn fancy-button bg-gradient1"><span>SEND IT</span></button>
-  </form>
-
+  <Form
+    class="contact-form"
+    :validation-schema="schema"
+    @submit="sendEmail"
+    v-slot="{ errors }"
+    method="post"
+  >
+    <Field
+      class="form-control form-control-sm"
+      type="text"
+      placeholder="Enter full name"
+      :class="{ 'is-invalid': errors.name }"
+      name="name"
+    />
+    <div class="warning-text-input">{{ errors.name }}</div>
+    <Field
+      :class="{ 'is-invalid': errors.reply_to }"
+      class="form-control form-control-sm input"
+      type="email"
+      placeholder="Enter your email address"
+      name="reply_to"
+    />
+    <div class="warning-text-input">{{ errors.reply_to }}</div>
+    <Field
+      class="form-control form-textarea form-control-sm text text-area-input"
+      name="message"
+      type="text"
+      :class="{ 'is-invalid': errors.message }"
+      placeholder="Type a message"
+    />
+    <button
+    style="border: none; outline: none;"
+      type="submit"
+      class="btn-contact fancy-button bg-gradient1"
+      @click="reset()"
+    >
+      <span style="border: none; outline: none;">SEND IT</span>
+    </button>
+  </Form>
 </template>
 
 <script>
-import emailjs from 'emailjs-com';
+import emailjs from "emailjs-com";
+import { useToast } from "vue-toastification";
+import { Field, Form } from "vee-validate";
+import * as Yup from "yup";
 
 export default {
-    data() {
-        return {
-            name: "fasaf",
-            email: "user@company.com",
-            message: "Enter your message..."
-        }
-    },
+  components: {
+    Form,
+    Field,
+  },
+  setup() {
+    const schema = Yup.object().shape({
+      name: Yup.string().required("Name is required"),
+      message: Yup.string().required("A message is required"),
+
+      reply_to: Yup.string()
+        .required("Email is required")
+        .email("Email is invalid"),
+    });
+
+    // Get toast interface
+    const toast = useToast();
+
+    // const onSubmit = e => {
+    //     // display form values on success
+    //     alert('SUCCESS!! :-)\n\n' + JSON.stringify(e, null, 4));
+    //     this.sendEmail()
+    // }
+
+    return {
+      schema,
+      toast,
+      // onSubmit
+    };
+  },
   methods: {
-    sendEmail: (e) => {
-      emailjs.sendForm('service_ducx66m', 'template_pap7zau', e.target, 'user_jpmayVYOD7Ud2zRQ23MFc')
-        .then((result) => {
-            console.log('SUCCESS!', result.status, result.text);
-        }, (error) => {
-            console.log('FAILED...', error);
-        });
+    sendEmail: function(e) {
+     console.log(e)
+      emailjs
+        .send(
+          "service_ducx66m",
+          "template_pap7zau",
+          e,
+          "user_jpmayVYOD7Ud2zRQ23MFc"
+        )
+        .then(
+          (result) => {
+            console.log("SUCCESS!", result.status, result.text);
+            this.toast.success("Email successfully sent!", {
+              toastClassName: "notification-class",
+            });
+          },
+          (error) => {
+            console.log("FAILED...", error);
+            this.toast.error(
+              "Failed to send e-mail! Please reach out to martin@glacierhub.io directly using your e-mail client.",
+              { toastClassName: "notification-error-class" }
+            );
+          }
+        );
     },
-  }
-}
+  },
+};
 </script>
 
-<style lang="scss" scoped>
-body {
-  background: #f1f1f1;
-  font-family: "Roboto", sans-serif;
+<style lang="scss">
+.text {
+  font-size: 0.7rem;
 }
 
-.btn {
-  background: none; /* Green */
+.warning-text-input {
+  font-size: 0.5rem;
+  color: darkred;
+  padding: 0px;
+}
+
+.text-area-input {
+  height: 160px;
+  padding: 0px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.input {
+  margin-top: 10px;
+}
+
+.Vue-Toastification__toast--success.notification-class {
+  
+  background-image: linear-gradient(90deg, (#1d976c, #93f9b9));
+}
+
+.Vue-Toastification__toast--error.notification-error-class {
+  
+  background-image: linear-gradient(90deg, (#93291e, #ed213a));
+}
+
+.btn-contact {
   border: none;
-  text-decoration: none;
-  outline:none;
-    &:hover,
-  &:focus,
-  &:after,
-  &:active {
-    text-decoration: none;
-    border: none;
-    outline:none;
-  }
-}
-
-/* Mixins */
-@mixin gradientBg($startColor, $endColor) {
-  background: $startColor;
-  background: -moz-linear-gradient(
-    left,
-    $startColor 0%,
-    $endColor 80%,
-    $endColor 100%
-  );
-  background: -webkit-linear-gradient(
-    left,
-    $startColor 0%,
-    $endColor 80%,
-    $endColor 100%
-  );
-  background: linear-gradient(
-    to right,
-    $startColor 0%,
-    $endColor 80%,
-    $endColor 100%
-  );
-}
-
-/* bg shortcodes */
-.bg-gradient1 span,
-.bg-gradient1:before {
-  @include gradientBg(#52a0fd, #8dd9ff);
-}
-
-
-/* General */
-.wrapper {
-  margin: 5% auto;
-  text-align: center;
-  transform-style: perserve-3d;
-}
-a {
-  text-decoration: none;
-
-  &:hover,
-  &:focus,
-  &:active {
-    text-decoration: none;
-  }
-}
-
-/* fancy Button */
-.fancy-button {
-  display: inline-block;
-  margin: 20px;
-  margin-bottom: 0px;
-  margin-top: 40px;
-  font-family: "Verdana", Helvetica, Arial, sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: #ffffff;
-  position: relative;
-
-  &:before {
-    content: "";
-    display: inline-block;
-    height: 40px;
-    position: absolute;
-    bottom: -5px;
-    left: 30px;
-    right: 30px;
-    z-index: -1;
-    border-radius: 30em;
-    filter: blur(20px) brightness(0.95);
-    transform-style: preserve-3d;
-    transition: all 0.3s ease-out;
-  }
-  i {
-    margin-top: -1px;
-    margin-right: 20px;
-    font-size: 1.265em;
-    vertical-align: middle;
-  }
-  span {
-    display: inline-block;
-    padding: 13px 68px;
-    border-radius: 50em;
-    position: relative;
-    z-index: 2;
-    will-change: transform, filter;
-    transform-style: preserve-3d;
-    transition: all 0.3s ease-out;
-  }
-  &:focus,
-  &:active {
-    color: #ffffff;
-  }
-  &:hover {
-    color: #ffffff;
-
-    span {
-      filter: brightness(1.05) contrast(1.05);
-      transform: scale(0.95);
-    }
-    &:before {
-      bottom: 0;
-      filter: blur(10px) brightness(0.95);
-    }
-  }
-  &.pop-onhover {
-    &:before {
-      opacity: 0;
-      bottom: 10px;
-    }
-    &:hover {
-      &:before {
-        bottom: -7px;
-        opacity: 1;
-        filter: blur(20px);
-      }
-      span {
-        transform: scale(1.04);
-      }
-      &:active {
-        span {
-          filter: brightness(1) contrast(1);
-          transform: scale(1);
-          transition: all 0.15s ease-out;
-        }
-        &:before {
-          bottom: 0;
-          filter: blur(10px) brightness(0.95);
-          transition: all 0.2s ease-out;
-        }
-      }
-    }
-  }
-}
-
-.contact-form {
-  font-family: 16px;
-  margin: 0 auto;
-  max-width: 600px;
-  width: 100%;
-}
-
-.contact-form .separator {
-  border-bottom: solid 1px #ccc;
-  margin-bottom: 15px;
-}
-
-.contact-form .form {
-  display: flex;
-  flex-direction: column;
-  font-size: 12px;
-}
-
-
-.contact-form input[type="email"],
-.contact-form input[type="text"],
-.contact-form textarea {
-  border: solid 1px #e8e8e8;
-  font-family: "Verdana", sans-serif;
-  padding: 10px 10px;
-  width: 90%;
-  margin-bottom: 15px;
+  background: none;
   outline: none;
+  margin: 0px 26px;
 }
 
-.contact-form textarea {
-  resize: none;
-  height: 100px;
+a {
+  &:active {
+    border: none;
+    background: none;
+    outline: none;
+  }
 }
 
-.contact-form .button {
-  background: #da552f;
-  border: solid 1px #da552f;
-  color: white;
-  cursor: pointer;
-  padding: 10px 50px;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.contact-form .button:hover {
-  background: #ea532a;
-  border: solid 1px #ea532a;
-}
-
-.contact-form input[type="email"],
-.contact-form input[type="text"],
-.contact-form textarea,
-.contact-form .button {
-  font-size: 10px;
-  border-radius: 3px;
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: left;
 }
 </style>

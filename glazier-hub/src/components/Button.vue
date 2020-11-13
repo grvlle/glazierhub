@@ -14,7 +14,7 @@ export default {
       btnText: {
           type: String,
           required: true,
-          default: "Contact Us"
+          default: "Contact"
       }
   }
 };
@@ -100,9 +100,9 @@ a {
   }
   span {
     display: inline-block;
-    padding: 13px 68px;
     border-radius: 50em;
     position: relative;
+    padding: 10px 63px;
     z-index: 2;
     will-change: transform, filter;
     transform-style: preserve-3d;

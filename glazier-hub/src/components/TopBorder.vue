@@ -15,7 +15,6 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  border: none;
   height: 58px;
   background-image: linear-gradient(90deg, (#8dd9ff, #52a0fd));
   z-index: 100;

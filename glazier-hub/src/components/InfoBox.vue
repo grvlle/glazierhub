@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="vertical-center justify-content-center">
     <div class="terminal">
       <span class="terminal_icon__aA_71"></span>
       <span class="terminal_icon__aA_71"></span>
@@ -8,7 +8,7 @@
       <type-effect />
     </div>
     <div class="box">
-      <div v-if="!showContactForm">
+      <div v-if="!$store.showContactForm">
         <img src="../assets/img/logo.png" />
         <h1>Glacier<span style="color: #8dd9ff">Hub</span></h1>
         <p>
@@ -19,7 +19,7 @@
           building <b>scalable</b> and <b>low-latency</b> distributed software.
         </p>
       </div>
-      <contact-form v-if="showContactForm" />
+      <contact-form v-if="$store.showContactForm" />
       <cta-btn :btn-text="btnText" @click="contactUs"></cta-btn>
     </div>
   </div>
@@ -40,16 +40,16 @@ export default {
   data() {
     return {
       showContactForm: false,
-      btnText: "Contact Us",
+      btnText: "Contact",
     };
   },
   methods: {
     contactUs: function () {
-      this.showContactForm = !this.showContactForm;
-      if (this.showContactForm) {
+      this.$store.showContactForm = !this.$store.showContactForm;
+      if (this.$store.showContactForm) {
           this.btnText = "Go Back"
       } else {
-          this.btnText = "Contact Us"
+          this.btnText = "Contact"
       }
     },
   },
@@ -57,14 +57,15 @@ export default {
 </script>
 
 <style lang="scss">
-.container {
+
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
   display: flex;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  position: absolute;
+  align-items: center;
 }
+
 
 .terminal {
   background-color: #191724;
@@ -104,7 +105,7 @@ export default {
 }
 
 .box {
-  height: 380px;
+  height: 410px;
   float: right;
   display: flexbox;
   color: #1d1d1d;
@@ -121,7 +122,7 @@ export default {
 img {
   width: 25%;
   height: 18%;
-  margin-bottom: -30px;
+  margin-bottom: 0px;
   margin-top: 20px;
 }
 

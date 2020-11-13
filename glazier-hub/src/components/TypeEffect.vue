@@ -18,20 +18,23 @@ import { setTimeout } from 'timers';
         newTextDelay: 2000,
         typeArrayIndex: 0,
         charIndex: 0,
-        goCode: `func (k *Kademlia) FindNode(target NodeID, final chan Contacts) {
+        goCode: `func (k *Kademlia) IterativeFindNode(target NodeID, delta int, final chan) {
 	done := make(chan Contacts)
-	ret := make(Contacts, BucketSize)
 
-	for pending > 0 {
-		nodes := <-done
-		for _, node := range nodes {
-			if _, ok := seen[node.ID.String()]; !ok {
-				seen[node.ID.String()] = struct{}{}
-			}
-		}
+	ret := make(Contacts, BucketSize)
+	frontier := make(Contacts, BucketSize)
+	seen := make(map[string]struct{})
+
+	pending := 0
+	for i := 0; i < delta && frontier.Len() > 0; i++ {
+		pending++
+		contact := heap.Pop(&frontier).(Contact)
+		go k.FindNode(contact, target, done)
+	}
 
 		for pending < delta && frontier.Len() > 0 {
 			pending++
+			contact := heap.Pop(&frontier).(Contact)
 			go k.FindNode(contact, target, done)
 		}
 	}
@@ -95,8 +98,7 @@ import { setTimeout } from 'timers';
     font-family: 'Fira Code';
     font-size: 0.7rem;
     font-weight: normal;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 20px;
 
     span.typed-text {
       color: #8dd9ff;
