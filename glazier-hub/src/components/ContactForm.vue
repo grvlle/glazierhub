@@ -7,7 +7,7 @@
     method="post"
   >
     <Field
-      class="form-control form-control-sm"
+      class="form-control form-control-sm text"
       type="text"
       placeholder="Enter full name"
       :class="{ 'is-invalid': errors.name }"
@@ -16,7 +16,7 @@
     <div class="warning-text-input">{{ errors.name }}</div>
     <Field
       :class="{ 'is-invalid': errors.reply_to }"
-      class="form-control form-control-sm input"
+      class="form-control form-control-sm input text"
       type="email"
       placeholder="Enter your email address"
       name="reply_to"
@@ -118,7 +118,7 @@ export default {
 }
 
 .text-area-input {
-  height: 160px;
+  height: 175px;
   padding: 0px;
   margin-top: 10px;
   margin-bottom: 20px;
