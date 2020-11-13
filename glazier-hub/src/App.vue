@@ -31,6 +31,7 @@ export default {
 body,
 html {
   overflow: hidden;
+  -webkit-font-smoothing: none;
 }
 #app {
   height: 100%;
@@ -43,8 +44,7 @@ html {
   // -o-background-size: cover;
   // background-size: cover;
   overflow: hidden;
-  transform: scale(1.1);
-  -webkit-font-smoothing: subpixel-antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  
+  -webkit-font-smoothing: none;
 }
 </style>

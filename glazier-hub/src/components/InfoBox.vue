@@ -10,7 +10,7 @@
     <div class="box">
       <div v-if="!$store.showContactForm">
         <img src="../assets/img/logo.png" />
-        <h1>Glacier<span style="color: #8dd9ff">Hub</span></h1>
+        <h1>Glacier<span style="color: #8dd9ff">Hub</span></h1><br />
         <p>
           We're a consultancy business that specializes in distributed systems
           and storage solutions.
@@ -70,14 +70,14 @@ export default {
 .terminal {
   background-color: #191724;
   float: left;
-  width: 62%;
+  width: 72%;
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
-  height: 410px;
+  height: 510px;
   flex-grow: 1;
   text-align: left;
-  max-width: 37em;
-  min-width: 30em;
+  max-width: 47em;
+  min-width: 40em;
   box-shadow: rgba(31, 31, 31, 0.651) 0px 0px 20px 0px;
 }
 
@@ -105,7 +105,7 @@ export default {
 }
 
 .box {
-  height: 410px;
+  height: 510px;
   float: right;
   display: flexbox;
   color: #1d1d1d;
@@ -135,11 +135,10 @@ h1 {
 
 p {
   font-family: "Verdana", sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   opacity: 0.7;
   color: rgb(243, 243, 243);
-  -webkit-font-smoothing: subpixel-antialiased;
-  -moz-osx-font-smoothing: grayscale;
   margin-bottom: 10px;
+  margin-top: 20px;
 }
 </style>

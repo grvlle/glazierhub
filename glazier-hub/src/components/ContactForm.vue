@@ -13,7 +13,6 @@
       :class="{ 'is-invalid': errors.name }"
       name="name"
     />
-    <div class="warning-text-input">{{ errors.name }}</div>
     <Field
       :class="{ 'is-invalid': errors.reply_to }"
       class="form-control form-control-sm input text"
@@ -21,7 +20,6 @@
       placeholder="Enter your email address"
       name="reply_to"
     />
-    <div class="warning-text-input">{{ errors.reply_to }}</div>
     <Field
       class="form-control form-textarea form-control-sm text text-area-input"
       name="message"
@@ -77,8 +75,9 @@ export default {
     };
   },
   methods: {
-    sendEmail: function(e) {
+    sendEmail: function(e, { resetForm }) {
      console.log(e)
+     resetForm();
       emailjs
         .send(
           "service_ducx66m",
@@ -101,6 +100,7 @@ export default {
             );
           }
         );
+        
     },
   },
 };
@@ -111,14 +111,8 @@ export default {
   font-size: 0.7rem;
 }
 
-.warning-text-input {
-  font-size: 0.5rem;
-  color: darkred;
-  padding: 0px;
-}
-
 .text-area-input {
-  height: 175px;
+  height: 275px;
   padding: 0px;
   margin-top: 10px;
   margin-bottom: 20px;
